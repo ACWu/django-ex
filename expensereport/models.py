@@ -2,6 +2,7 @@ import datetime
 
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -9,7 +10,8 @@ class ExpenseReport(models.Model):
     generate_date = models.DateTimeField('date generated')
     title = models.CharField(max_length=200)
     ending_mileage = models.IntegerField()
-    
+    added_by = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
+        
     def __str__(self):
         return self.generate_date.strftime('%m/%d/%Y')
         
@@ -23,11 +25,11 @@ class ExpenseReport(models.Model):
 class ExpenseItem(models.Model):
     expense_report = models.ForeignKey(ExpenseReport, on_delete=models.CASCADE)
     item_date = models.DateField()
-    meals = models.DecimalField(max_digits=8, decimal_places=2)
-    hotel = models.DecimalField(max_digits=8, decimal_places=2)
-    telephone = models.DecimalField(max_digits=8, decimal_places=2)
-    transportation = models.DecimalField(max_digits=8, decimal_places=2)
-    miscellaneous = models.DecimalField(max_digits=8, decimal_places=2)
+    meals = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    hotel = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    telephone = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    transportation = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    miscellaneous = models.DecimalField(max_digits=8, decimal_places=2, default=0)
     description = models.CharField(max_length=500)
     
     def __str__(self):
