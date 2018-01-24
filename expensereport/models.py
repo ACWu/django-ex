@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class ExpenseReport(models.Model):
-    generate_date = models.DateTimeField('date generated')
+    generate_date = models.DateTimeField('date created')
     title = models.CharField(max_length=200)
     ending_mileage = models.IntegerField()
     added_by = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
